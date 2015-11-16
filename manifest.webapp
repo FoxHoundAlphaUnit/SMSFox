@@ -1,0 +1,29 @@
+{
+  "version": "0.1.0",
+  "name": "SMSFox",
+  "description": "Web relay",
+  "launch_path": "/index.html",
+  "icons": {
+    "16": "/img/icons/fox16x16.png",
+    "48": "/img/icons/fox48x48.png",
+    "60": "/img/icons/fox60x60.png",
+    "128": "/img/icons/fox128x128.png"
+  },
+  "developer": {
+    "name": "Fox Hound Alpha Unit",
+    "url": "https://github.com/FoxHoundAlphaUnit"
+  },
+  "type": "privileged",
+  "permissions": {},
+  "installs_allowed_from": [
+    "*"
+  ],
+  "locales": {
+    "fr": {
+      "name": "SMSFox",
+      "description": "Relais web",
+      "permissions": {}
+    }
+  },
+  "default_locale": "en"
+}
