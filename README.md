@@ -1,5 +1,5 @@
 # SMSFox
-Firefox OS application to serve as a web relay to send messages, and as an alternative to the native SMS application.
+Firefox OS application to serve as a web relay to send and receive messages.
 
 ## Objectives
 
