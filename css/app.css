@@ -1,5 +1,7 @@
 body {
-  background: #f57c00; /* Materialize orange TODO: Sass/less */
+  /* TODO: Sass/less */
+  background-color: #ff9800;
+  background-image: url('../img/classy-fabric.png');
   color: #ffffff;
 }
 
