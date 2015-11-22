@@ -49,8 +49,15 @@
     </head>
     <body>
         <nav>
-            <div class="nav-wrapper orange darken-2">
-                <a href="#" class="brand-logo center" data-l10n-id="app_title"></a>
+            <div class="nav-wrapper orange">
+                <ul>
+                    <li><a href="#!" class="brand-logo center"><img src="img/icons/fox48x48.png" height="40"/></a></li>
+                </ul>
+                <ul id="slide-out" class="side-nav">
+                    <li><a href="#!">mes_objets</a></li>
+                    <li><a href="#!">mon_serveur</a></li>
+                </ul>
+                <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
             </div>
         </nav>
         <section>

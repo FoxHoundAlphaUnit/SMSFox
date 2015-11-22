@@ -1,4 +1,12 @@
 body {
-  background: #ff9800; /* Materialize orange TODO: Sass/less */
+  background: #f57c00; /* Materialize orange TODO: Sass/less */
   color: #ffffff;
+}
+
+section {
+  padding: 0 10px;
+}
+
+.nav-wrapper img {
+  margin: auto 0;
 }
