@@ -17,7 +17,8 @@
         <link rel="stylesheet" href="css/app.css">
         
         <!--Import Google Icon Font-->
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+        <link type="text/css" rel="stylesheet" href="font/material-icons.css" />
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="css/libs/materialize.min.css" />
 
@@ -51,11 +52,15 @@
         <nav>
             <div class="nav-wrapper orange">
                 <ul>
-                    <li><a href="#!" class="brand-logo center"><img src="img/icons/fox48x48.png" height="40"/></a></li>
+                    <li>
+                        <a href="#!" class="brand-logo center">
+                           <img src="img/icons/fox48x48.png" width="40" height="40"/>
+                        </a>
+                    </li>
                 </ul>
                 <ul id="slide-out" class="side-nav">
-                    <li><a href="#!">mes_objets</a></li>
-                    <li><a href="#!">mon_serveur</a></li>
+                    <li><a href="#!" data-l10n-id="my_objects"></a></li>
+                    <li><a href="#!" data-l10n-id="my_server"></a></li>
                 </ul>
                 <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
             </div>

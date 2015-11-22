@@ -9,4 +9,5 @@ section {
 
 .nav-wrapper img {
   margin: auto 0;
+  vertical-align: middle;
 }
