@@ -11,3 +11,15 @@ section {
   margin: auto 0;
   vertical-align: middle;
 }
+
+.nav-wrapper .side-nav {
+  background-color: #ff9800;
+}
+
+.nav-wrapper .side-nav a {
+  color: #ffffff;
+}
+
+.nav-wrapper .side-nav li:hover {
+  background-color: #f57c00;
+}
