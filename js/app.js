@@ -24,6 +24,26 @@ window.addEventListener('DOMContentLoaded', function() {
       closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
     });
 
+    $('#home').click(function(){
+      Materialize.toast('Returning home', 4000);
+    });
+    
+    $('#my_objects').click(function(){
+      Materialize.toast('Opening the connected objects', 4000);
+    });
+    
+    $('#my_server').click(function(){
+      Materialize.toast('Opening the server settings', 4000);
+    });
+    
+    $('#settings').click(function(){
+      Materialize.toast('Opening the app settings', 4000);
+    });
+    
+    $('#about').click(function(){
+      Materialize.toast('Opening the About section', 4000);
+    });
+    
     var message = document.getElementById('message');
 
     // We're using textContent because inserting content from external sources into your page using innerHTML can be dangerous.
