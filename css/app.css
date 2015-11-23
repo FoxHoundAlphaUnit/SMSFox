@@ -28,3 +28,11 @@ section {
   margin: 10px 10px; }
   .row label {
     color: black; }
+
+.collapsible .row {
+  margin: 0;
+  padding: 10px; }
+.collapsible .col.s4 {
+  text-align: center; }
+.collapsible .collapsible-body {
+  background-color: #FF9800; }
