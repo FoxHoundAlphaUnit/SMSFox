@@ -43,6 +43,9 @@ window.addEventListener('DOMContentLoaded', function() {
     $('#about').click(function(){
       Materialize.toast('Opening the About section', 4000);
     });
+	$('#testServeur').click(function(){
+		Materialize.toast('Im a BANANA', 4000);
+	});
     
     var message = document.getElementById('message');
 

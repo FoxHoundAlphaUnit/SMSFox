@@ -18,3 +18,13 @@ section {
     background-color: #FF9800; }
     .nav-wrapper .side-nav a {
       color: #FFE0B2; }
+
+.switch {
+  margin: 10px 10px; }
+  .switch label {
+    color: black; }
+
+.row {
+  margin: 10px 10px; }
+  .row label {
+    color: black; }
