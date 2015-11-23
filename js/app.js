@@ -44,6 +44,10 @@ window.addEventListener('DOMContentLoaded', function() {
       Materialize.toast('Opening the About section', 4000);
     });
     
+    
+    $('select').material_select();
+ 
+    
     var message = document.getElementById('message');
 
     // We're using textContent because inserting content from external sources into your page using innerHTML can be dangerous.
