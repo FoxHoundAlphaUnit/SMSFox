@@ -47,6 +47,7 @@ window.addEventListener('DOMContentLoaded', function() {
 		Materialize.toast('Im a BANANA', 4000);
 	});
     
+
     
     $('select').material_select();
  
