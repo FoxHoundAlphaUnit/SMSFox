@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>SMSFox</title>
+        <title data-l10n-id="settings"></title>
         <meta name="author" content="Fox Hound Alpha Unit">
         <meta name="description" content="A privileged app stub">
 
@@ -40,9 +40,7 @@
                 <div class="nav-wrapper darken-2 orange">
                     <ul>
                         <li>
-                            <a href="#!" class="brand-logo center">
-                               <img src="img/icons/fox48x48.png" width="40" height="40"/>
-                            </a>
+                            <a href="#!" class="brand-logo center" data-l10n-id="settings"></a>
                         </li>
                     </ul>
                     <ul id="slide-out" class="side-nav">
@@ -50,7 +48,7 @@
                         <li><a href="objects.html" data-l10n-id="my_objects" id="my_objects"></a></li>
                         <li><a href="server.html" data-l10n-id="my_server" id="my_server"></a></li>
                         <li><a href="settings.html" data-l10n-id="settings" id="settings"></a></li>
-                        <li><a href="about.html" data-l10n-id="about" id="about"></a></li>              
+                        <li><a href="about.html" data-l10n-id="about" id="about"></a></li>
                     </ul>
                     <a href="#" data-activates="slide-out" class="button-collapse">
                         <i class="mdi-navigation-menu"></i>
@@ -60,37 +58,32 @@
         </header>
 
         <main>
-            <section>
-                <div class="row">
-                    <div class="col s9">
-                        <select>
-                        <option value="" disabled selected>Choose your object</option>
-                        <option value="1">Object 1</option>
-                        <option value="2">Object 2</option>
-                        <option value="3">Object 3</option>
-                        </select>
-                    </div>
-                    <div class="col s3">
-                        <a class="btn-floating waves-effect waves-light indigo accent-2">
-                            <i class="mdi-content-add"></i>
-                        </a>
-                    </div>
-                </div>
-				 <ul class="collection with-header">
-					<li class="collection-header"><span>Commandes</span><a class="btn-floating waves-effect waves-light indigo accent-2"><i class="mdi-content-add"></i></a></li>
-					<li class="collection-item"><div>Commande 1<a href="#!" class="secondary-content"><i class="mdi-content-send"></i></a></div></li>
-					<li class="collection-item"><div>Commande 2<a href="#!" class="secondary-content"><i class="mdi-content-send"></i></a></div></li>
-					<li class="collection-item"><div>Commande 3<a href="#!" class="secondary-content"><i class="mdi-content-send"></i></a></div></li>
-					<li class="collection-item"><div>Commande 4<a href="#!" class="secondary-content"><i class="mdi-content-send"></i></a></div></li>
-					
-					<li class="collection-item"><div>Commande 2<a href="#!" class="secondary-content"><i class="mdi-content-send"></i></a></div></li>
-					<li class="collection-item"><div>Commande 3<a href="#!" class="secondary-content"><i class="mdi-content-send"></i></a></div></li>
-					<li class="collection-item"><div>Commande 4<a href="#!" class="secondary-content"><i class="mdi-content-send"></i></a></div></li>
-					
-					<li class="collection-item"><div>Commande 2<a href="#!" class="secondary-content"><i class="mdi-content-send"></i></a></div></li>
-					<li class="collection-item"><div>Commande 3<a href="#!" class="secondary-content"><i class="mdi-content-send"></i></a></div></li>
-					<li class="collection-item"><div>Commande 4<a href="#!" class="secondary-content"><i class="mdi-content-send"></i></a></div></li>
-				 </ul>
+            <section>         
+            
+             <div class="container">
+                                          
+
+                      <div class="row">
+                          <div class="input-field col s12">
+                              <textarea id="textarea1" class="materialize-textarea"></textarea>
+                              <label for="textarea1">Add code here</label>
+                          </div>
+                      </div>  
+
+                      <div class="row center-align">                                             
+                          <div class="fixed-action-btn horizontal">
+                              <a class="btn-floating btn-large red">
+                                  <i class="large mdi-navigation-menu"></i>
+                              </a>                                                  
+                              <ul>
+                                  <li><a class="btn-floating red "><i class="mdi-content-create"></i></a></li>
+                                  <li><a class="btn-floating yellow darken-1"><i class="mdi-action-delete"></i></a></li>                                  
+                              </ul>
+                          </div>                       
+                      </div> 
+                              
+                   </div>
+              
             </section>
         </main>
 
