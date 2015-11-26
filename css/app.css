@@ -36,3 +36,16 @@ section {
   text-align: center; }
 .collapsible .collapsible-body {
   background-color: #FF9800; }
+
+#commands.collection.with-header {
+  margin: 0;
+  border: none; }
+  #commands.collection.with-header .collection-header {
+    background-color: #F57C00;
+    border-radius: 5px;
+    color: white; }
+  #commands.collection.with-header .collection-item {
+    background-color: transparent;
+    border-bottom-color: #FFE0B2; }
+  #commands.collection.with-header .secondary-content {
+    color: #536DFE; }
