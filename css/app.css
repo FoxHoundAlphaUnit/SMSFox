@@ -37,6 +37,9 @@ section {
 .collapsible .collapsible-body {
   background-color: #FF9800; }
 
+#button_right {
+  float: right; }
+
 #commands.collection.with-header {
   margin: 0;
   border: none; }
