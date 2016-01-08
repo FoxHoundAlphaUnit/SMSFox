@@ -52,3 +52,6 @@ section {
     border-bottom-color: #FFE0B2; }
   #commands.collection.with-header .secondary-content {
     color: #536DFE; }
+
+.separated_li {
+  margin-top: 100px; }
