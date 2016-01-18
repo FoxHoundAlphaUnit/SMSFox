@@ -13,16 +13,23 @@
     "name": "Fox Hound Alpha Unit",
     "url": "https://github.com/FoxHoundAlphaUnit"
   },
-  "type": "privileged",
-  "permissions": {},
+  "type": "certified",
+  "permissions": {
+    "sms": {
+      "description": "You can send and receive text messages in this app."
+    },
+	"contacts": {
+		"description": "You need access to your contact list",
+		"access": "readonly"
+	  }
+  },
   "installs_allowed_from": [
     "*"
   ],
   "locales": {
     "fr": {
       "name": "SMSFox",
-      "description": "Relais web",
-      "permissions": {}
+      "description": "Relais web"
     }
   },
   "default_locale": "en"

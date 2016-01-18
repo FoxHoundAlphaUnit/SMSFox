@@ -8,6 +8,71 @@ window.addEventListener('DOMContentLoaded', function() {
   // https://developer.mozilla.org/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode
   'use strict';
 
+  
+	/* log the result */
+	function logMsg(msg){
+		['type', 'id', 'threadId', 'body', 'delivery', 'deliveryStatus', 'read', 'receiver', 'sender', 'timestamp', 'messageClass'].forEach(function (key){
+			$("#response").append("<br> " + key + ": " + msg[key]);
+		});
+	}
+
+	var last_sms_id = -1;
+
+	$('form#sms-form').on("submit", function (ev){
+		$("#response").html("submit form");
+		
+		ev.preventDefault();
+		ev.stopPropagation();
+
+		var msg = $('[name=msg]').val();
+		var phone = $('[name=phone]').val();
+		var request;
+		var requests;
+		
+
+		$("#response").html("got values");
+	    /*navigator.mozSetMessageHandler('sms-sent',
+	        function smsSent(message) {
+	            message.messageClass = 'class-0';
+	        }
+	    );*/
+    	request = navigator.mozMobileMessage.send(phone, msg);
+		$("#response").html("tried to send message");
+
+		//requests.forEach(function (request) {
+		$("#response").html("iterate through requests");
+		request.onsuccess = function (){
+			window.thing = this;
+			console.error(this.result);
+			$("#response").html("Sent to <br>" + this.result);
+			last_sms_id = this.result['id'];
+			logMsg(this.result);
+		};
+		
+		request.onerror = function (){
+			window.thing = this;
+			console.error(this.error.name);
+			console.error(this.error.message);
+			$("#response").html(this.error.name + ':' + this.error.message);
+		};
+	});
+	
+	/* check if the last sms was well delivered (receipt) */
+	window.setInterval(function(){
+		if (last_sms_id != -1){
+			var request = navigator.mozMobileMessage.getMessage(last_sms_id);
+			request.onsuccess = function (){
+				window.thing = this;
+				console.error(this.result);
+				logMsg(this.result);
+			}
+			
+			request.onerror = function (){
+				$("#response").html('SHIIIT!!!');
+			}
+		}
+	}, 5000);
+  
   var translate = navigator.mozL10n.get;
 
   // We want to wait until the localisations library has loaded all the strings.
@@ -23,40 +88,47 @@ window.addEventListener('DOMContentLoaded', function() {
       edge: 'left', // Choose the horizontal origin
       closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
     });
+	
+	
+	var allContacts = navigator.mozContacts.getAll();
+	allContacts.onsuccess = function(event) {
+		console.log("allContacts.onsuccess event")
+		var cursor = event.target;
+		var gn, fn, tl;
+		if (cursor.result) {
+			console.log("Found: ");
+			gn = (cursor.result.givenName == null) ? "" : cursor.result.givenName[0]
+			console.log("Given name : " + gn);
 
-    /*$('#home').click(function(){
-      Materialize.toast('Returning home', 4000);
-    });
+			fn = (cursor.result.familyName == null) ? "" : cursor.result.familyName[0]
+			console.log("Family name : " + fn);
+			
+			tl = (cursor.result.tel == null) ? "" : cursor.result.tel[0].value
+			console.log("Tel : " + tl);
+			
+			// Append new contact to the select
+			$('#contacts').append('<option value="' + tl + '">' + gn + ' ' + fn + '</option>');
+			
+			// Go to the next contact
+			cursor.continue();
+		} else {
+			console.log("No more contacts");
+			// Once the contacts are all retrieved, we create the Materialize select
+			$('select').material_select();
+		}
+	};
+	
+	allContacts.onerror = function() {
+		console.warn("Something went terribly wrong while retrieving the contacts!");
+	};
 
-    $('#my_objects').click(function(){
-      Materialize.toast('Opening the connected objects', 4000);
-    });
-
-    $('#my_server').click(function(){
-      Materialize.toast('Opening the server settings', 4000);
-    });
-
-    $('#settings').click(function(){
-      Materialize.toast('Opening the app settings', 4000);
-    });
-
-    $('#about').click(function(){
-      Materialize.toast('Opening the About section', 4000);
-    });*/
-
-    $('#testServeur').click(function(){
-      Materialize.toast('I\'m a BANANA', 4000);
-    });
-
-    $('select').material_select();
-
-
-    var message = document.getElementById('message');
-
+    // var message = document.getElementById('message');
     // We're using textContent because inserting content from external sources into your page using innerHTML can be dangerous.
     // https://developer.mozilla.org/Web/API/Element.innerHTML#Security_considerations
-    message.textContent = translate('message');
+    // message.textContent = translate('message');
 
   }
 
 });
+
+

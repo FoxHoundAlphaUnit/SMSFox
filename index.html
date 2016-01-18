@@ -24,7 +24,7 @@
         execute the deferred files.
         Read about defer: https://developer.mozilla.org/Web/HTML/Element/script#attr-defer
         -->
-        <script type="text/javascript" src="js/app.min.js" defer></script>
+        <script type="text/javascript" src="js/app.js" defer></script>
 
         <!-- Loading the localisations library -->
         <link rel="prefetch" type="application/l10n" href="data/locales.ini" />
@@ -62,12 +62,9 @@
         <main>
             <section>
             <div class="row">
-                <div class="col s10">
-                    <select>
-                        <option value="" disabled selected>Liste contacts</option>
-                        <option value="1">Emre</option>
-                        <option value="2">Kévin</option>
-                        <option value="3">Jaweed</option>
+                <div class="input-field col s10">
+                    <select id="contacts">
+						<option value="" disabled selected>Choose your contact</option>
                     </select>
                 </div>
                 <div class="col s2">
@@ -79,9 +76,12 @@
 			<div class="row">
 				  <div class="input-field col s12">
 					  <textarea id="textarea1" class="materialize-textarea"></textarea>
-					  <label for="textarea1">Add code here</label>
+					  <label for="textarea1">Enter your message</label>
 				  </div>
 			</div> 
+                <div class="col-xs-12">
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+              </div>
             </div>
             </section>
         </main>
