@@ -18,7 +18,8 @@ window.addEventListener('DOMContentLoaded', function() {
 
 	var last_sms_id = -1;
 
-	$('form#sms-form').on("submit", function (ev){
+	$('#sms-submit').on("click", function (ev){
+		console.log("Submitting form");
 		$("#response").html("submit form");
 		
 		ev.preventDefault();
