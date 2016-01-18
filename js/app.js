@@ -15,7 +15,8 @@ window.addEventListener('DOMContentLoaded', function() {
 		['type', 'id', 'threadId', 'body', 'delivery', 'deliveryStatus', 'read', 'receiver', 'sender', 'timestamp', 'messageClass'].forEach(function (key){
 			r += '<br> ' + key + ': ' + msg[key];
 		});
-		$("#response").html(r);
+		//$("#response").html(r);
+		console.log(r);
 	}
 
 	var last_sms_id = -1;
@@ -23,7 +24,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	$('#sms-submit').on("click", function (ev){
 		console.log("Submitting SMS form...");
 		$("#main-section").append('<div class="row"><div id="response"></div></div>');
-		$("#response").html("Submitting form...");
+		$("#response").html("Submitting SMS...");
 		
 		var msg = document.getElementById('message').value;
 		var phone = document.getElementById('contacts').value;
@@ -38,6 +39,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			console.log("Sent to: " + this.result);
 			last_sms_id = this.result['id'];
 			logMsg(this.result);
+			$("#response").html("<span>Successfully sent ✓</span><br/>")
 			
 			/* check if the last sms was well delivered (receipt) */
 			var checking_last_sms = window.setInterval(function(){
@@ -46,14 +48,17 @@ window.addEventListener('DOMContentLoaded', function() {
 					request.onsuccess = function (){
 						window.thing = this;
 						console.error(this.result);
+						
 						if (this.result['deliveryStatus'] == 'success'){
 							clearInterval(checking_last_sms);
+							$("#response").append("<span>Successfully received ✓</span>");
 						}
+						
 						logMsg(this.result);
 					}
 			
 					request.onerror = function (){
-						$("#response").html('Couldn\'t retrieve last sent SMS...');
+						$("#response").html('<span>Couldn\'t retrieve last sent SMS...</span>');
 						clearInterval(checking_last_sms);
 					}
 				}
@@ -64,7 +69,8 @@ window.addEventListener('DOMContentLoaded', function() {
 			window.thing = this;
 			console.error(this.error.name);
 			console.error(this.error.message);
-			$("#response").html(this.error.name + ':' + this.error.message);
+			$("#response").html('<span>Error while sending the message ✗</span>');
+			$("#response").append('<span>' + this.error.name + ':' + this.error.message + '</span>');
 		};
 	});
 	
