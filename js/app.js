@@ -12,17 +12,40 @@ window.addEventListener('DOMContentLoaded', function() {
 	/* log the result */
 	function logMsg(msg){
 		['type', 'id', 'threadId', 'body', 'delivery', 'deliveryStatus', 'read', 'receiver', 'sender', 'timestamp', 'messageClass'].forEach(function (key){
-			$("#response").append("<br> " + key + ": " + msg[key]);
+			$("#response").html("<br> " + key + ": " + msg[key]);
 		});
 	}
 
 	var last_sms_id = -1;
 
 	$('#sms-submit').on("click", function (ev){
-		console.log("Submitting form");
-		$("#response").html("submit form");
+		console.log("Submitting SMS form...");
+		$("#main-section").append('<div class="row"><div id="response"></div></div>');
+		$("#response").html("Submitting form...");
 		
-		ev.preventDefault();
+		var msg = document.getElementById('message').value;
+		var phone = document.getElementById('contacts').value;
+		console.log('Submitted message : ' + msg + ' Phone nb: ' + phone);
+		
+		var request;
+		request = navigator.mozMobileMessage.send(phone, msg);
+		
+		request.onsuccess = function (){
+			window.thing = this;
+			console.log(this.result);
+			console.log("Sent to: " + this.result);
+			last_sms_id = this.result['id'];
+			logMsg(this.result);
+		};
+		
+		request.onerror = function (){
+			window.thing = this;
+			console.error(this.error.name);
+			console.error(this.error.message);
+			$("#response").html(this.error.name + ':' + this.error.message);
+		};
+		
+		/*ev.preventDefault();
 		ev.stopPropagation();
 
 		var msg = $('[name=msg]').val();
@@ -32,11 +55,11 @@ window.addEventListener('DOMContentLoaded', function() {
 		
 
 		$("#response").html("got values");
-	    /*navigator.mozSetMessageHandler('sms-sent',
+	    navigator.mozSetMessageHandler('sms-sent',
 	        function smsSent(message) {
 	            message.messageClass = 'class-0';
 	        }
-	    );*/
+	    );
     	request = navigator.mozMobileMessage.send(phone, msg);
 		$("#response").html("tried to send message");
 
@@ -55,7 +78,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			console.error(this.error.name);
 			console.error(this.error.message);
 			$("#response").html(this.error.name + ':' + this.error.message);
-		};
+		};*/
 	});
 	
 	/* check if the last sms was well delivered (receipt) */
@@ -69,7 +92,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			}
 			
 			request.onerror = function (){
-				$("#response").html('SHIIIT!!!');
+				$("#response").html('Couldn\'t retrieve last sent SMS...');
 			}
 		}
 	}, 5000);
@@ -93,19 +116,14 @@ window.addEventListener('DOMContentLoaded', function() {
 	
 	var allContacts = navigator.mozContacts.getAll();
 	allContacts.onsuccess = function(event) {
-		console.log("allContacts.onsuccess event")
 		var cursor = event.target;
 		var gn, fn, tl;
 		if (cursor.result) {
-			console.log("Found: ");
+			console.log("Found one contact...");
 			gn = (cursor.result.givenName == null) ? "" : cursor.result.givenName[0]
-			console.log("Given name : " + gn);
-
 			fn = (cursor.result.familyName == null) ? "" : cursor.result.familyName[0]
-			console.log("Family name : " + fn);
-			
 			tl = (cursor.result.tel == null) ? "" : cursor.result.tel[0].value
-			console.log("Tel : " + tl);
+			console.log('Given name : ' + gn + ', Family name : ' + fn + ', Tel : ' + tl);
 			
 			// Append new contact to the select
 			$('#contacts').append('<option value="' + tl + '">' + gn + ' ' + fn + '</option>');
@@ -113,7 +131,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			// Go to the next contact
 			cursor.continue();
 		} else {
-			console.log("No more contacts");
+			console.log("No more contacts, creating the Materialize select...");
 			// Once the contacts are all retrieved, we create the Materialize select
 			$('select').material_select();
 		}
