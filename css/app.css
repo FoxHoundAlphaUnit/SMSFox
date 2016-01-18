@@ -50,13 +50,25 @@ body {
   #commands.collection.with-header .secondary-content {
     color: #536DFE; }
 
-.separated_li {
-  margin-top: 100px; }
+.separated_li_top {
+  border-bottom: 2px solid #B6B6B6;
+  padding-bottom: 20px !important; }
+
+.separated_li_bottom {
+  border-top: 2px solid #B6B6B6;
+  padding-top: 20px !important; }
 
 .input-field label {
   padding-bottom: 4px;
   font-size: 14px !important;
   color: #212121; }
+
+#response {
+  background-color: #F57C00;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 20px; }
 
 textarea.materialize-textarea:focus:not([readonly]) {
   border-bottom: 1px solid #536DFE;
