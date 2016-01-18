@@ -11,9 +11,11 @@ window.addEventListener('DOMContentLoaded', function() {
   
 	/* log the result */
 	function logMsg(msg){
+		var r = "";
 		['type', 'id', 'threadId', 'body', 'delivery', 'deliveryStatus', 'read', 'receiver', 'sender', 'timestamp', 'messageClass'].forEach(function (key){
-			$("#response").html("<br> " + key + ": " + msg[key]);
+			r += '<br> ' + key + ': ' + msg[key];
 		});
+		$("#response").html(r);
 	}
 
 	var last_sms_id = -1;
@@ -36,6 +38,26 @@ window.addEventListener('DOMContentLoaded', function() {
 			console.log("Sent to: " + this.result);
 			last_sms_id = this.result['id'];
 			logMsg(this.result);
+			
+			/* check if the last sms was well delivered (receipt) */
+			var checking_last_sms = window.setInterval(function(){
+				if (last_sms_id != -1){
+					var request = navigator.mozMobileMessage.getMessage(last_sms_id);
+					request.onsuccess = function (){
+						window.thing = this;
+						console.error(this.result);
+						if (this.result['deliveryStatus'] == 'success'){
+							clearInterval(checking_last_sms);
+						}
+						logMsg(this.result);
+					}
+			
+					request.onerror = function (){
+						$("#response").html('Couldn\'t retrieve last sent SMS...');
+						clearInterval(checking_last_sms);
+					}
+				}
+			}, 5000);
 		};
 		
 		request.onerror = function (){
@@ -44,58 +66,9 @@ window.addEventListener('DOMContentLoaded', function() {
 			console.error(this.error.message);
 			$("#response").html(this.error.name + ':' + this.error.message);
 		};
-		
-		/*ev.preventDefault();
-		ev.stopPropagation();
-
-		var msg = $('[name=msg]').val();
-		var phone = $('[name=phone]').val();
-		var request;
-		var requests;
-		
-
-		$("#response").html("got values");
-	    navigator.mozSetMessageHandler('sms-sent',
-	        function smsSent(message) {
-	            message.messageClass = 'class-0';
-	        }
-	    );
-    	request = navigator.mozMobileMessage.send(phone, msg);
-		$("#response").html("tried to send message");
-
-		//requests.forEach(function (request) {
-		$("#response").html("iterate through requests");
-		request.onsuccess = function (){
-			window.thing = this;
-			console.error(this.result);
-			$("#response").html("Sent to <br>" + this.result);
-			last_sms_id = this.result['id'];
-			logMsg(this.result);
-		};
-		
-		request.onerror = function (){
-			window.thing = this;
-			console.error(this.error.name);
-			console.error(this.error.message);
-			$("#response").html(this.error.name + ':' + this.error.message);
-		};*/
 	});
 	
-	/* check if the last sms was well delivered (receipt) */
-	window.setInterval(function(){
-		if (last_sms_id != -1){
-			var request = navigator.mozMobileMessage.getMessage(last_sms_id);
-			request.onsuccess = function (){
-				window.thing = this;
-				console.error(this.result);
-				logMsg(this.result);
-			}
-			
-			request.onerror = function (){
-				$("#response").html('Couldn\'t retrieve last sent SMS...');
-			}
-		}
-	}, 5000);
+	
   
   var translate = navigator.mozL10n.get;
 
