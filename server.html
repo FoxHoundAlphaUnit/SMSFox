@@ -33,6 +33,9 @@
         <!-- Importing Javascript libraries -->
         <script type="text/javascript" src="js/libs/jquery-2.1.4.min.js" defer></script>
         <script type="text/javascript" src="js/libs/materialize.min.js" defer></script>
+		
+	    <script type="text/javascript" src="js/libs/fxos-web-server.js" defer></script>
+		<script type="text/javascript" src="js/server.min.js" defer></script>
     </head>
     <body>
         <header>
@@ -60,29 +63,41 @@
         <main>
             <section>
                  <!-- Switch -->
-                <div class="switch">
+                <!--<div class="switch">
                     <label>
-                        <label> Off </label>
+                        <label>Off</label>
                         <input type="checkbox">
                         <span class="lever darken-2 orange"></span>
-                        <label> On </label>
+                        <label>On</label>
                     <label>
-                </div>
+                </div>-->
+				<a id="start-server" class="waves-effect waves-light btn">Start</a>
+				<a id="stop-server" class="waves-effect waves-light btn">Stop</a>
+				
 				<div class="row">
-					<div class="input-field col s12">
-					  <input id="email" type="email" class="validate">
-					  <label for="email">Adresse IP</label>
+					<div class="col s12">
+						<label>Status: </label>
+						<span id="server-status"></span>
+					</div>
+					<div class="col s12">
+						<label>Adresse IP: </label>
+						<span id="ip-address"></span>
+					</div>
+					<div class="col s12">
+						<label>Port: </label>
+						<span id="listening-port"></span>
 					</div>
 				</div>
 				<div class="row">
-					<div class="input-field col s12">
-					  <input id="port" type="email" class="validate">
-					  <label for="port">Port</label>
+					<div class="col s12">
+						
 					</div>
 				</div>
-				<button id ="testServeur" class="btn waves-effect waves-light" type="submit" name="action">Tester
-					<i class="mdi-content-send"></i>
-				</button>
+				<div class="row">
+					<div class="col s12">
+						
+					</div>
+				</div>
 			</section>
         </main>
 

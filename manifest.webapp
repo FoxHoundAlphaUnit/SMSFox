@@ -19,8 +19,11 @@
       "description": "You can send and receive text messages in this app."
     },
 	"contacts": {
-		"description": "You need access to your contact list",
+		"description": "We need access to your contact list",
 		"access": "readonly"
+	  },
+	  "tcp-socket": {
+	  	"description": "We need to create a server with the use of TCP sockets"
 	  }
   },
   "installs_allowed_from": [
