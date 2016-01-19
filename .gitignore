@@ -4,3 +4,5 @@
 *.min.*.css
 app.css
 *.min.js
+.sass-cache
+log.minify*
