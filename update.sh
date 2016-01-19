@@ -1,8 +1,10 @@
 echo -n 'Compiling SASS files... '
-sass css/app.sass > app.css
+sass css/app.sass > css/app.css
 echo 'Done'
 
-echo -n 'Minifying files... '
-minify css/app.css css/libs/materialize.css > log.minify.css
-minify js/app.js js/server.js > log.minify.js
-echo 'Done'
+echo 'Minifying files... '
+minify css/app.css
+minify css/libs/materialize.css
+minify js/app.js
+minify js/server.js
+echo 'Done minifying'
