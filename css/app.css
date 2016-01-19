@@ -24,8 +24,12 @@ body {
 .row {
   margin: 10px 10px; }
   .row label {
-    color: #536DFE;
-    font-size: inherit; }
+    color: black; }
+
+.row .server-label {
+  color: #536DFE;
+  font-size: inherit;
+  margin-right: 10px; }
 
 .collapsible .row {
   margin: 0;
