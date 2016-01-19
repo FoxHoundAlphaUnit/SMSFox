@@ -1,2 +1,6 @@
 ~*
 *~
+*.min.css
+*.min.*.css
+app.css
+*.min.js
