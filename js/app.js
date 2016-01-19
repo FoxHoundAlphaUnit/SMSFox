@@ -23,7 +23,11 @@ window.addEventListener('DOMContentLoaded', function() {
 
 	$('#sms-submit').on("click", function (ev){
 		console.log("Submitting SMS form...");
-		$("#main-section").append('<div class="row"><div id="response"></div></div>');
+		
+		var resp = document.getElementById('response');
+		if (resp == null) {
+			$("#main-section").append('<div class="row"><div id="response"></div></div>');
+		}
 		$("#response").html("Submitting SMS...");
 		
 		var msg = document.getElementById('message').value;
