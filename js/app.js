@@ -4,10 +4,17 @@
 // https://developer.mozilla.org/Web/Reference/Events/DOMContentLoaded
 window.addEventListener('DOMContentLoaded', function() {
 
-  // We'll ask the browser to use strict code to help us catch errors earlier.
-  // https://developer.mozilla.org/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode
-  'use strict';
+	// We'll ask the browser to use strict code to help us catch errors earlier.
+	// https://developer.mozilla.org/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode
+	'use strict';
 
+	var e = document.getElementById('nav-slide');
+	if (e != null){
+		console.log('Successfully retrieved nav-slide');
+		$("#nav-slide").load("../slide.html");
+	} else {
+		console.log('Error while retrieving nav-slide');
+	}
   
 	/* log the result */
 	function logMsg(msg){
@@ -15,7 +22,6 @@ window.addEventListener('DOMContentLoaded', function() {
 		['type', 'id', 'threadId', 'body', 'delivery', 'deliveryStatus', 'read', 'receiver', 'sender', 'timestamp', 'messageClass'].forEach(function (key){
 			r += '<br> ' + key + ': ' + msg[key];
 		});
-		//$("#response").html(r);
 		console.log(r);
 	}
 
