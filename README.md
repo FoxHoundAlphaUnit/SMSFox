@@ -42,5 +42,11 @@ $ minify js/app.js
 $ minify js/server.js
 ```
 
+#### Alternative
+Or you can just launch the update.sh script which will transform and minify the necessary files but don't forget to install sass and the minifier or it won't work.
+```batchfile
+$ ./update.sh
+```
+
 #### Web IDE
 Finally, you can load the app into an emulator or your own Firefox OS phone using WebIDE (available in the Firefox browser, Tools/Web Developer/Web IDE) and it should work!
