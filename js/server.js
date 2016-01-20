@@ -35,16 +35,23 @@ window.addEventListener('load', function() {
 	});
 
 	port.textContent = httpServer.port;
+	navigator.mozL10n.once(moz_start);
+	
+	function moz_start(){
+		// may be to modify, when the server is correctly running
+		status.textContent = navigator.mozL10n.get('stopped');
+		
+		start.addEventListener('click', function() {
+		  	httpServer.start();
+			status.textContent = navigator.mozL10n.get('running');
+		});
 
-	start.addEventListener('click', function() {
-	  	httpServer.start();
-		status.textContent = 'Running';
-	});
+		stop.addEventListener('click', function() {
+		  	httpServer.stop();
+			status.textContent = navigator.mozL10n.get('stopped');
+		});
+	}
 
-	stop.addEventListener('click', function() {
-	  	httpServer.stop();
-		status.textContent = 'Stopped';
-	});
 });
 
 window.addEventListener('beforeunload', function() {
