@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', function() {
+//window.addEventListener('DOMContentLoaded', function() {
 	/* log the result */
 	function logMsg(msg){
 		var r = "";
@@ -93,4 +93,4 @@ window.addEventListener('DOMContentLoaded', function() {
 	allContacts.onerror = function() {
 		console.warn("Something went terribly wrong while retrieving the contacts!");
 	};
-});
+	//});

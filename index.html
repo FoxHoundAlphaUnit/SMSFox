@@ -25,7 +25,7 @@
         Read about defer: https://developer.mozilla.org/Web/HTML/Element/script#attr-defer
         -->
         <script type="text/javascript" src="js/app.min.js" defer></script>
-		<script type="text/javascript" src="js/sms-contacts.min.js" defer></script>
+		<!--<script type="text/javascript" src="js/sms-contacts.min.js" defer></script>-->
 
         <!-- Loading the localisations library -->
         <link rel="prefetch" type="application/l10n" href="data/locales.ini" />
@@ -34,6 +34,7 @@
         <!-- Importing Javascript libraries -->
         <script type="text/javascript" src="js/libs/jquery-2.1.4.min.js" defer></script>
         <script type="text/javascript" src="js/libs/materialize.min.js" defer></script>
+		<script type="text/javascript" src="js/libs/fxos-web-server.js"></script>
     </head>
     <body>
 		
@@ -54,30 +55,8 @@
 
         <main>
             <section id="main-section">
-				<div class="container">
-		        	<div class="row">
-			            <div class="input-field col s10">
-			                <select id="contacts">
-								<option data-l10n-id="choose_contact" value="" disabled selected></option>
-			                </select>
-			            </div>
-			            <div class="input-field col s2">
-			                <a class="btn-floating waves-effect waves-light indigo accent-2">
-			                    <i class="mdi-content-add"></i>
-			                </a>
-			            </div>
-			        </div>
-					<div class="row">
-						  <div class="input-field col s12">
-							  <textarea id="message" class="materialize-textarea" placeholder=""></textarea>
-							  <label data-l10n-id="enter_message" for="textarea1"></label>
-						  </div>
-					</div> 
-					<div class="row">
-			            <div class="col s12">
-			            	<a id="sms-submit" data-l10n-id="submit" type="submit" class="waves-effect waves-light btn indigo accent-2"></a>
-			          	</div>
-			        </div>
+				<div id="main-container" class="container">
+		        	
 				</div>
             </section>
         </main>
