@@ -73,11 +73,10 @@ window.addEventListener('DOMContentLoaded', function() {
 		var cursor = event.target;
 		var gn, fn, tl;
 		if (cursor.result) {
-			console.log("Found one contact...");
 			gn = (cursor.result.givenName == null) ? "" : cursor.result.givenName[0]
 			fn = (cursor.result.familyName == null) ? "" : cursor.result.familyName[0]
 			tl = (cursor.result.tel == null) ? "" : cursor.result.tel[0].value
-			console.log('Given name : ' + gn + ', Family name : ' + fn + ', Tel : ' + tl);
+			console.log('Found one contact... Given name : ' + gn + ', Family name : ' + fn + ', Tel : ' + tl);
 		
 			// Append new contact to the select
 			$('#contacts').append('<option value="' + tl + '">' + gn + ' ' + fn + '</option>');
