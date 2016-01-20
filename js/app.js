@@ -34,7 +34,7 @@ window.addEventListener('DOMContentLoaded', function() {
 		if (resp == null) {
 			$("#main-section").append('<div class="row"><div id="response"></div></div>');
 		}
-		$("#response").html("Submitting SMS...");
+		$("#response").html(translate('submitting_sms') + '...');
 		
 		var msg = document.getElementById('message').value;
 		var phone = document.getElementById('contacts').value;
@@ -49,7 +49,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			console.log("Sent to: " + this.result);
 			last_sms_id = this.result['id'];
 			logMsg(this.result);
-			$("#response").html("<span>Successfully sent ✓</span><br/>")
+			$("#response").html('<span>' + translate('successfully_sent') + ' ✓</span><br/>');
 			
 			/* check if the last sms was well delivered (receipt) */
 			var checking_last_sms = window.setInterval(function(){
@@ -61,7 +61,7 @@ window.addEventListener('DOMContentLoaded', function() {
 						
 						if (this.result['deliveryStatus'] == 'success'){
 							clearInterval(checking_last_sms);
-							$("#response").append("<span>Successfully received ✓</span>");
+							$("#response").append('<span>' + translate('successfully_received') + ' ✓</span>');
 						}
 						
 						logMsg(this.result);
@@ -79,7 +79,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			window.thing = this;
 			console.error(this.error.name);
 			console.error(this.error.message);
-			$("#response").html('<span>Error while sending the message ✗</span>');
+			$("#response").html('<span>' + translate('error_sending_message') + ' ✗</span>');
 			$("#response").append('<span>' + this.error.name + ':' + this.error.message + '</span>');
 		};
 	});
