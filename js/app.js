@@ -45,7 +45,11 @@ function load_page(requested_page){
 			console.log('3');
 			
 			// may be to modify, when the server is correctly running
-			status.textContent = navigator.mozL10n.get('stopped');
+			if (httpServer.running){
+				status.textContent = navigator.mozL10n.get('running');
+			} else {
+				status.textContent = navigator.mozL10n.get('stopped');
+			}
 
 			start.addEventListener('click', function() {
 			  	httpServer.start();
@@ -82,7 +86,8 @@ function load_page(requested_page){
 
 				var resp = document.getElementById('response');
 				if (resp == null) {
-					$("#main-section").append('<div class="row"><div id="response"></div></div>');
+					//$("#main-section").append('<div class="row"><div id="response"></div></div>');
+					$("#main-container").append('<div class="row"><div id="response"></div></div>');
 				}
 				$("#response").html(navigator.mozL10n.get('submitting_sms') + '...');
 
