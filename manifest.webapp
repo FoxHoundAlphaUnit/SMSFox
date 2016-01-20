@@ -13,6 +13,12 @@
     "name": "Fox Hound Alpha Unit",
     "url": "https://github.com/FoxHoundAlphaUnit"
   },
+  "datastores-owned": {
+    "smsfox": {
+      "access" : "readwrite",
+      "description": "The settings of the SMSFox app"
+    }
+  },
   "type": "certified",
   "permissions": {
     "sms": {
@@ -33,7 +39,11 @@
     "fr": {
       "name": "SMSFox",
       "description": "Relais web"
-    }
+    },
+	"pt-BR": {
+		"name": "SMSFox",
+		"description": "SMS web app"
+	}
   },
-  "default_locale": "en"
+  "default_locale": "en-US"
 }
