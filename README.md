@@ -1,7 +1,5 @@
-![fox](img/icons/fox128x128.png)
-
-# SMSFox
-Firefox OS application to serve as a web relay to send and receive messages.
+# SMSFox ![fox](img/icons/fox128x128.png)
+Firefox OS application to serve as a web relay to send messages.
 
 ## Initial objectives
 * Mastering the entire compilation process of applications under Firefox OS
