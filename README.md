@@ -17,7 +17,7 @@ $ cd SMSFox
 
 #### Compiling SASS
 You'll have to compile the SASS file from css/app.sass to css/app.css.
-So, first, if you don't have SASS installed, install the Gem:
+So, first, if you don't have SASS installed, install the Gem (you must have Ruby installed on your machine):
 ```batchfile
 $ gem install sass
 ```
@@ -27,7 +27,7 @@ $ sass css/app.sass > css/app.css
 ```
 
 #### Minifying
-First, if you don't have a tool to minify, install one. For example, minifier.
+First, if you don't have a tool to minify, install one. For example, minifier (you must have NodeJS and the NodeJS package manager installed):
 ```batchfile
 $ npm install -g minifier
 ```
