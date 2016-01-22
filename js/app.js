@@ -1,7 +1,7 @@
 var last_sms_id = -1;
 var httpServer = new HTTPServer(8080);
 
-// Logging the result from messages
+/* Logging the result from messages */
 function logMsg(msg){
 	var r = "";
 	['type', 'id', 'threadId', 'body', 'delivery', 'deliveryStatus', 'read', 'receiver', 'sender', 'timestamp', 'messageClass'].forEach(function (key){
@@ -10,13 +10,14 @@ function logMsg(msg){
 	console.log(r);
 }
 
-// Not very beautiful, but for now, it is OK
+/* Not very beautiful, but for now, it is OK */
 function update_loc(){
 	$('[data-l10n-id]').each(function(index){
 		$(this).html(navigator.mozL10n.get($(this).attr('data-l10n-id')));
 	});
 }
 
+/* Loading the page */
 function load_page(requested_page){
 	console.log('Loading page ' + requested_page);
 	if (requested_page == "about"){
@@ -29,25 +30,27 @@ function load_page(requested_page){
 			console.log('Loading of the HTML performed');
 			update_loc();
 	
+			/* Getting the elements */
 			var sstatus = document.getElementById('server-status');
 			var ip     = document.getElementById('ip-address');
 			var port   = document.getElementById('listening-port');
 			var start_b  = document.getElementById('start-server');
 			var stop_b   = document.getElementById('stop-server');
 
+			/* Displaying */
 			IPUtils.getAddresses(function(ipAddress) {
 				ip.textContent = ip.textContent || ipAddress;
 			});
 			
 			port.textContent = httpServer.port;
 			
-			// may be to modify, when the server is correctly running
 			if (httpServer.running){
 				sstatus.textContent = navigator.mozL10n.get('running');
 			} else {
 				sstatus.textContent = navigator.mozL10n.get('stopped');
 			}
 
+			/* Adding listeners in the buttons */
 			start_b.addEventListener('click', function() {
 				console.log('Clicked on start');
 			  	httpServer.start();
@@ -69,8 +72,11 @@ function load_page(requested_page){
 		$("#main-container").load("../content/settings_content.html", function() {
 			console.log('Loading of the HTML performed');
 			update_loc();
+			
+			/* Initializing the selects */
 			$('select').material_select();
 			
+			/* Modifying the app language */
 			$("#select-language").change(function() {
 				var l = $("#select-language").val();
 				console.log('New selected language: ' + l);
@@ -84,13 +90,16 @@ function load_page(requested_page){
 			
 			last_sms_id = -1;
 
+			/* Settings the behavior on click : sending SMS */
 			$('#sms-submit').on("click", function (ev){
 				console.log("Submitting SMS form...");
 
+				/* Creating the response div, if not existing */
 				var resp = document.getElementById('response');
 				if (resp == null) {
 					$("#main-container").append('<div class="row"><div id="response"></div></div>');
 				}
+				
 				$("#response").html(navigator.mozL10n.get('submitting_sms') + '...');
 
 				var msg = document.getElementById('message').value;
@@ -100,6 +109,7 @@ function load_page(requested_page){
 				var request;
 				request = navigator.mozMobileMessage.send(phone, msg);
 
+				/* When the message was successfully sent */
 				request.onsuccess = function (){
 					window.thing = this;
 					console.log(this.result);
@@ -108,7 +118,7 @@ function load_page(requested_page){
 					logMsg(this.result);
 					$("#response").html('<span>' + navigator.mozL10n.get('successfully_sent') + ' ✓</span><br/>');
 	
-					/* check if the last sms was well delivered (receipt) */
+					/* Check if the last sms was well delivered (receipt) */
 					var checking_last_sms = window.setInterval(function(){
 						if (last_sms_id != -1){
 							var request = navigator.mozMobileMessage.getMessage(last_sms_id);
@@ -132,6 +142,7 @@ function load_page(requested_page){
 					}, 5000);
 				};
 
+				/* When the message wasn't sent correctly */
 				request.onerror = function (){
 					window.thing = this;
 					console.error(this.error.name);
@@ -152,14 +163,14 @@ function load_page(requested_page){
 					tl = (cursor.result.tel == null) ? "" : cursor.result.tel[0].value
 					console.log('Found one contact... Given name : ' + gn + ', Family name : ' + fn + ', Tel : ' + tl);
 	
-					// Append new contact to the select
+					/* Append new contact to the select */
 					$('#contacts').append('<option value="' + tl + '">' + gn + ' ' + fn + '</option>');
 	
-					// Go to the next contact
+					/* Go to the next contact */
 					cursor.continue();
 				} else {
 					console.log("No more contacts, creating the Materialize select...");
-					// Once the contacts are all retrieved, we create the Materialize select
+					/* Once the contacts are all retrieved, we create the Materialize select */
 					$('select').material_select();
 				}
 			};
@@ -181,6 +192,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	// https://developer.mozilla.org/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode
 	'use strict';
 	
+	/* Adding listener to the server (when the server is getting a request) */
 	httpServer.addEventListener('request', function(evt) {
 		var request  = evt.request;
 		var response = evt.response;
@@ -204,7 +216,7 @@ window.addEventListener('DOMContentLoaded', function() {
 		response.send(body);
 	});
 
-	// Loading the side nav
+	/* Loading the side nav */
 	var e = document.getElementById('nav-slide');
 	if (e != null){
 		console.log('Successfully retrieved nav-slide');
@@ -255,6 +267,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 });
 
+/* Stopping the server when unload */
 window.addEventListener('beforeunload', function() {
 	httpServer.stop();
 });
