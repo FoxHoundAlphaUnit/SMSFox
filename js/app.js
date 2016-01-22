@@ -93,7 +93,7 @@ function load_page(requested_page){
 
 			/* Settings the behavior on click : sending SMS */
 			$('#sms-submit').on("click", function (ev){
-				console.log("Submitting SMS form...");
+				console.log('Submitting SMS form...');
 
 				/* Creating the response div, if not existing */
 				var resp = document.getElementById('response');
@@ -114,7 +114,7 @@ function load_page(requested_page){
 				request.onsuccess = function (){
 					window.thing = this;
 					console.log(this.result);
-					console.log("Sent to: " + this.result);
+					console.log('Sent to: ' + this.result);
 					last_sms_id = this.result['id'];
 					logMsg(this.result);
 					$("#response").html('<span>' + navigator.mozL10n.get('successfully_sent') + ' ✓</span><br/>');
@@ -170,14 +170,14 @@ function load_page(requested_page){
 					/* Go to the next contact */
 					cursor.continue();
 				} else {
-					console.log("No more contacts, creating the Materialize select...");
+					console.log('No more contacts, creating the Materialize select...');
 					/* Once the contacts are all retrieved, we create the Materialize select */
 					$('select').material_select();
 				}
 			};
 
 			allContacts.onerror = function() {
-				console.warn("Something went terribly wrong while retrieving the contacts!");
+				console.warn('Something went terribly wrong while retrieving the contacts!');
 			};
 		});
 	}
@@ -221,7 +221,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	var e = document.getElementById('nav-slide');
 	if (e != null){
 		console.log('Successfully retrieved nav-slide');
-		$("#nav-slide").load("../slide.html", function() {
+		$("#nav-slide").load('../slide.html', function() {
 			$('.button-collapse').sideNav({
 				menuWidth: 200, /* Default is 240 */
 				edge: 'left', /* Choose the horizontal origin */
