@@ -1,3 +1,4 @@
+/* Global variables */
 var last_sms_id = -1;
 var httpServer = new HTTPServer(8080);
 
@@ -182,14 +183,14 @@ function load_page(requested_page){
 	}
 }
 
-// DOMContentLoaded is fired once the document has been loaded and parsed,
-// but without waiting for other external resources to load (css/images/etc)
-// That makes the app more responsive and perceived as faster.
-// https://developer.mozilla.org/Web/Reference/Events/DOMContentLoaded
+/* DOMContentLoaded is fired once the document has been loaded and parsed,
+but without waiting for other external resources to load (css/images/etc)
+That makes the app more responsive and perceived as faster.
+https://developer.mozilla.org/Web/Reference/Events/DOMContentLoaded */
 window.addEventListener('DOMContentLoaded', function() {
 
-	// We'll ask the browser to use strict code to help us catch errors earlier.
-	// https://developer.mozilla.org/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode
+	/* We'll ask the browser to use strict code to help us catch errors earlier.
+	https://developer.mozilla.org/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode */
 	'use strict';
 	
 	/* Adding listener to the server (when the server is getting a request) */
@@ -222,9 +223,9 @@ window.addEventListener('DOMContentLoaded', function() {
 		console.log('Successfully retrieved nav-slide');
 		$("#nav-slide").load("../slide.html", function() {
 			$('.button-collapse').sideNav({
-				menuWidth: 200, // Default is 240
-				edge: 'left', // Choose the horizontal origin
-				closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+				menuWidth: 200, /* Default is 240 */
+				edge: 'left', /* Choose the horizontal origin */
+				closeOnClick: true /* Closes side-nav on <a> clicks, useful for Angular/Meteor */
 			});
 			
 			$('#home').on("click", function(ev){
@@ -233,7 +234,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			});
 			$('#objects').on("click", function(ev){
 				console.log("Clicked objects");
-				//load_page("objects");
+				// load_page("objects");
 			});
 			$('#server').on("click", function(ev){
 				console.log("Clicked server");
@@ -255,8 +256,8 @@ window.addEventListener('DOMContentLoaded', function() {
 		console.log('Error while retrieving nav-slide');
 	}
 	
-	// We want to wait until the localisations library has loaded all the strings.
-	// So we'll tell it to let us know once it's ready.
+	/* We want to wait until the localisations library has loaded all the strings.
+	So we'll tell it to let us know once it's ready. */
 	navigator.mozL10n.once(start);
 
 	function start() {
