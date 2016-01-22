@@ -37,9 +37,6 @@ Then, minify all the app css and js files:
 $ minify css/app.css
 $ minify css/libs/materialize.css
 $ minify js/app.js
-$ minify js/server.js
-$ minify js/settings.js
-$ minify js/sms-contacts.js
 ```
 
 #### Alternative
