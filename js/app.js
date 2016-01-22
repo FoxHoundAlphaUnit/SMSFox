@@ -29,36 +29,35 @@ function load_page(requested_page){
 			console.log('Loading of the HTML performed');
 			update_loc();
 	
-			var status = document.getElementById('server-status');
+			var sstatus = document.getElementById('server-status');
 			var ip     = document.getElementById('ip-address');
 			var port   = document.getElementById('listening-port');
-			var start  = document.getElementById('start-server');
-			var stop   = document.getElementById('stop-server');
+			var start_b  = document.getElementById('start-server');
+			var stop_b   = document.getElementById('stop-server');
 
-			console.log('1');
 			IPUtils.getAddresses(function(ipAddress) {
 				ip.textContent = ip.textContent || ipAddress;
 			});
 			
-			console.log('2');
 			port.textContent = httpServer.port;
-			console.log('3');
 			
 			// may be to modify, when the server is correctly running
 			if (httpServer.running){
-				status.textContent = navigator.mozL10n.get('running');
+				sstatus.textContent = navigator.mozL10n.get('running');
 			} else {
-				status.textContent = navigator.mozL10n.get('stopped');
+				sstatus.textContent = navigator.mozL10n.get('stopped');
 			}
 
-			start.addEventListener('click', function() {
+			start_b.addEventListener('click', function() {
+				console.log('Clicked on start');
 			  	httpServer.start();
-				status.textContent = navigator.mozL10n.get('running');
+				sstatus.textContent = navigator.mozL10n.get('running');
 			});
 
-			stop.addEventListener('click', function() {
+			stop_b.addEventListener('click', function() {
+				console.log('Clicked on stop');
 			  	httpServer.stop();
-				status.textContent = navigator.mozL10n.get('stopped');
+				sstatus.textContent = navigator.mozL10n.get('stopped');
 			});
 			
 		});
@@ -86,7 +85,6 @@ function load_page(requested_page){
 
 				var resp = document.getElementById('response');
 				if (resp == null) {
-					//$("#main-section").append('<div class="row"><div id="response"></div></div>');
 					$("#main-container").append('<div class="row"><div id="response"></div></div>');
 				}
 				$("#response").html(navigator.mozL10n.get('submitting_sms') + '...');
@@ -178,7 +176,6 @@ window.addEventListener('DOMContentLoaded', function() {
 	// We'll ask the browser to use strict code to help us catch errors earlier.
 	// https://developer.mozilla.org/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode
 	'use strict';
-
 	
 	httpServer.addEventListener('request', function(evt) {
 		var request  = evt.request;
@@ -242,8 +239,6 @@ window.addEventListener('DOMContentLoaded', function() {
 		console.log('Error while retrieving nav-slide');
 	}
 	
-	
-	
 	// We want to wait until the localisations library has loaded all the strings.
 	// So we'll tell it to let us know once it's ready.
 	navigator.mozL10n.once(start);
@@ -259,5 +254,4 @@ window.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('beforeunload', function() {
 	httpServer.stop();
 });
-
 
