@@ -64,9 +64,18 @@ function load_page(requested_page){
 				sstatus.textContent = navigator.mozL10n.get('stopped');
 			});
 			
-			$('#testing-server').on('click', function(){
+			$('#testing-server').on('click', function(e){
 				console.log('Clicked on testing');
-				window.location.href = 'http://' + ip.textContent + ':' + port.textContent;
+				
+				e.preventDefault();
+				var activity = new MozActivity({
+					name: "view",
+					data: {
+						type: "url",
+						url: 'http://' + ip.textContent + ':' + port.textContent
+					}
+				});
+				//window.location.href = 'http://' + ip.textContent + ':' + port.textContent;
 			});
 		});
 	} else if (requested_page == "settings"){
