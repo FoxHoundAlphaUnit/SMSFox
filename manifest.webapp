@@ -2,7 +2,7 @@
   "version": "0.1.0",
   "name": "SMSFox",
   "description": "Web relay",
-  "launch_path": "/index.html",
+  "launch_path": "/index.test.html",
   "icons": {
     "16": "/img/icons/fox16x16.png",
     "48": "/img/icons/fox48x48.png",
