@@ -10,7 +10,8 @@
 
         <link type="text/css" rel="stylesheet" href="font/material-icons.css" />
         <link type="text/css" rel="stylesheet" href="css/libs/materialize.min.css" />
-		<link type="text/css" rel="stylesheet" href="css/app.min.css">
+		<link type="text/css" rel="stylesheet" href="css/app.min.css" />
+		<link type="text/css" rel="stylesheet" href="css/libs/qunit-1.20.0.css" />
 
         <!--
         Inline JavaScript code is not allowed for privileged and certified apps,
@@ -25,6 +26,7 @@
         Read about defer: https://developer.mozilla.org/Web/HTML/Element/script#attr-defer
         -->
         <script type="text/javascript" src="js/app.min.js" defer></script>
+		<script type="text/javascript" src="js/tests.js" defer></script>
 
         <!-- Loading the localisations library -->
         <link rel="prefetch" type="application/l10n" href="data/locales.ini" />
@@ -33,6 +35,7 @@
         <!-- Importing Javascript libraries -->
         <script type="text/javascript" src="js/libs/jquery-2.1.4.min.js" defer></script>
         <script type="text/javascript" src="js/libs/materialize.min.js" defer></script>
+		<script type="text/javascript" src="js/libs/qunit-1.20.0.js" defer></script>
 		<script type="text/javascript" src="js/libs/fxos-web-server.js"></script>
     </head>
     <body>
@@ -61,6 +64,8 @@
         </main>
 
         <footer>
+			<div id="qunit"></div>
+			<div id="qunit-fixture"></div>
         </footer>
 		
     </body>
