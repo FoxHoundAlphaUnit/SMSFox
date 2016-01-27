@@ -12,4 +12,9 @@ window.addEventListener('DOMContentLoaded', function() {
 		}
 		assert.notOk(httpServer.running, "Passed!");
 	});
+	
+	QUnit.test("Content well-loaded", function(assert){
+		content = $("#main-container").html();
+		assert.ok(content.length > 0, "Passed!");
+	});
 });
