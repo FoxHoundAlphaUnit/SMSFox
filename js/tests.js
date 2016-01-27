@@ -1,13 +1,15 @@
 window.addEventListener('DOMContentLoaded', function() {
 	QUnit.test("Opened server", function(assert){
-		assert.ok(1 == "1", "Passed!");
+		if (!httpServer.running){
+			httpServer.start();
+		}
+		assert.ok(httpServer.running, "Passed!");
 	});
 	
 	QUnit.test("Closed server", function(assert){
-		assert.ok(1 == "1", "Passed!");
-	});
-	
-	QUnit.test("...", function(assert){
-		assert.ok(1 == "1", "Passed!");
+		if (httpServer.running){
+			httpServer.stop();
+		}
+		assert.notOk(httpServer.running, "Passed!");
 	});
 });
