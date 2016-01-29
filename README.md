@@ -15,6 +15,13 @@ $ git clone https://github.com/FoxHoundAlphaUnit/SMSFox.git SMSFox
 $ cd SMSFox
 ```
 
+## Automatic building
+You can launch the update.sh script which will transform and minify the necessary files but you have to install sass and the minifier or it won't work.
+```batchfile
+$ ./update.sh
+```
+
+## Manual building
 #### Compiling SASS
 You'll have to compile the SASS file from css/app.sass to css/app.css.
 So, first, if you don't have SASS installed, install the Gem (you must have Ruby installed on your machine):
@@ -37,12 +44,6 @@ Then, minify all the app css and js files:
 $ minify css/app.css
 $ minify css/libs/materialize.css
 $ minify js/app.js
-```
-
-#### Alternative
-Or you can just launch the update.sh script which will transform and minify the necessary files but don't forget to install sass and the minifier or it won't work.
-```batchfile
-$ ./update.sh
 ```
 
 #### Web IDE

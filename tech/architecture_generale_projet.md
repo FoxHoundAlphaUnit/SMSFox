@@ -12,6 +12,7 @@
 ## data/
 * **en-US.properties** : traduction en anglais 🇺🇸
 * **fr.properties** : traduction en français 🇫🇷
+* **pt-BR.properties** : traduction en portugais 
 * **locales.ini** : importe les traductions 
 
 ## img/
@@ -26,9 +27,15 @@
 ## tech/
 Contient diverses documentations sur le projet
 
+## content/
+* **_content** : fichier html qui contient le contenu des différentes pages de l'application
+
 ## /
-* Une page **HTML** par layout (index.html, objects.html, server.html, settings.html, etc.)
+* **index.html** : page principale dans laquelle le contenu du dossier **content/** sera inséré
+* **index.test.html** : page contenant la configuration pour le lancement des tests
+
 * **manifest.webapp** : le manifeste de l'application
 * Un **README.md** de l'application (objectifs, avancements, comment contribuer, etc.)
-* Un **README_original.md** : README informatif d'origine sur tout nouveau projet Firefox OS
+* **slide.html** : contenu de la barre latérale de l'application
+* **update.sh** : exécutable pour préparer le css et le js
 * **LICENSE** : licence APACHE de l'application
