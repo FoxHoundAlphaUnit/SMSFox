@@ -58,3 +58,12 @@ If everything is working properly, you can now connect to the server on the loca
 ![app_tabs](img/screenshots/tab.png) ![server_settings](img/screenshots/server.png)
 
 Then, if you want to make it available on the internet. You got plenty of ways to do it, one could be by using NAT (Network Address Translation) so it becomes available via your public IP address on a specific port.
+
+## Progress
+#### Done
+* Sending SMS 
+* Retrieving contacts
+* Local web server OK
+
+#### Next step 
+* Preparing server response pages (sending SMS through the server)
