@@ -21,16 +21,12 @@ function update_loc(){
 /* Loading the page */
 function load_page(requested_page){
 	console.log('Loading page ' + requested_page);
-	if (requested_page == "about"){
-		$("#main-container").load("../content/about_content.html", function() {
-			console.log('Loading of the HTML performed');
-			update_loc();
-		});
-	} else if (requested_page == "server"){
-		$("#main-container").load("../content/server_content.html", function() {
-			console.log('Loading of the HTML performed');
-			update_loc();
 	
+	$("#main-container").load("../content/" + requested_page + "_content.html", function(){
+		console.log('Loading HTML performed!');
+		update_loc();
+		
+		if (requested_page == "server"){
 			/* Getting the elements */
 			var sstatus = document.getElementById('server-status');
 			var ip     = document.getElementById('ip-address');
@@ -42,9 +38,9 @@ function load_page(requested_page){
 			IPUtils.getAddresses(function(ipAddress) {
 				ip.textContent = ip.textContent || ipAddress;
 			});
-			
+		
 			port.textContent = httpServer.port;
-			
+		
 			if (httpServer.running){
 				sstatus.textContent = navigator.mozL10n.get('running');
 			} else {
@@ -63,10 +59,10 @@ function load_page(requested_page){
 			  	httpServer.stop();
 				sstatus.textContent = navigator.mozL10n.get('stopped');
 			});
-			
+		
 			$('#testing-server').on('click', function(e){
 				console.log('Clicked on testing');
-				
+			
 				e.preventDefault();
 				var activity = new MozActivity({
 					name: "view",
@@ -75,29 +71,18 @@ function load_page(requested_page){
 						url: 'http://' + ip.textContent + ':' + port.textContent
 					}
 				});
-				//window.location.href = 'http://' + ip.textContent + ':' + port.textContent;
 			});
-		});
-	} else if (requested_page == "settings"){
-		$("#main-container").load("../content/settings_content.html", function() {
-			console.log('Loading of the HTML performed');
-			update_loc();
-			
+		} else if (requested_page == "settings"){	
 			/* Initializing the selects */
 			$('select').material_select();
-			
+		
 			/* Modifying the app language */
 			$("#select-language").change(function() {
 				var l = $("#select-language").val();
 				console.log('New selected language: ' + l);
 				navigator.mozL10n.language.code = l;
 			});
-		});
-	} else {
-		$("#main-container").load("../content/index_content.html", function() {
-			console.log('Loading of the HTML performed');
-			update_loc();
-			
+		} else if (requested_page == "index"){
 			last_sms_id = -1;
 
 			/* Settings the behavior on click : sending SMS */
@@ -109,7 +94,7 @@ function load_page(requested_page){
 				if (resp == null) {
 					$("#main-container").append('<div class="row"><div id="response"></div></div>');
 				}
-				
+			
 				$("#response").html(navigator.mozL10n.get('submitting_sms') + '...');
 
 				var msg = document.getElementById('message').value;
@@ -127,7 +112,7 @@ function load_page(requested_page){
 					last_sms_id = this.result['id'];
 					logMsg(this.result);
 					$("#response").html('<span>' + navigator.mozL10n.get('successfully_sent') + ' ✓</span><br/>');
-	
+
 					/* Check if the last sms was well delivered (receipt) */
 					var checking_last_sms = window.setInterval(function(){
 						if (last_sms_id != -1){
@@ -135,15 +120,15 @@ function load_page(requested_page){
 							request.onsuccess = function (){
 								window.thing = this;
 								console.error(this.result);
-				
+			
 								if (this.result['deliveryStatus'] == 'success'){
 									clearInterval(checking_last_sms);
 									$("#response").append('<span>' + navigator.mozL10n.get('successfully_received') + ' ✓</span>');
 								}
-				
+			
 								logMsg(this.result);
 							}
-	
+
 							request.onerror = function (){
 								$("#response").html('<span>Couldn\'t retrieve last sent SMS...</span>');
 								clearInterval(checking_last_sms);
@@ -172,10 +157,10 @@ function load_page(requested_page){
 					fn = (cursor.result.familyName == null) ? "" : cursor.result.familyName[0]
 					tl = (cursor.result.tel == null) ? "" : cursor.result.tel[0].value
 					console.log('Found one contact... Given name : ' + gn + ', Family name : ' + fn + ', Tel : ' + tl);
-	
+
 					/* Append new contact to the select */
 					$('#contacts').append('<option value="' + tl + '">' + gn + ' ' + fn + '</option>');
-	
+
 					/* Go to the next contact */
 					cursor.continue();
 				} else {
@@ -188,8 +173,8 @@ function load_page(requested_page){
 			allContacts.onerror = function() {
 				console.warn('Something went terribly wrong while retrieving the contacts!');
 			};
-		});
-	}
+		}
+	});
 }
 
 /* DOMContentLoaded is fired once the document has been loaded and parsed,
@@ -239,7 +224,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			
 			$('#home').on("click", function(ev){
 				console.log("Clicked home");
-				load_page("home");
+				load_page("index");
 			});
 			$('#objects').on("click", function(ev){
 				console.log("Clicked objects");
@@ -258,7 +243,7 @@ window.addEventListener('DOMContentLoaded', function() {
 				load_page("about");
 			});
 			
-			load_page("home");
+			load_page("index");
 			
 		});
 	} else {
