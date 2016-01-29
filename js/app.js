@@ -228,7 +228,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			});
 			$('#objects').on("click", function(ev){
 				console.log("Clicked objects");
-				// load_page("objects");
+				Materialize.toast('Work in progress', 4000);
 			});
 			$('#server').on("click", function(ev){
 				console.log("Clicked server");

@@ -15,6 +15,13 @@ $ git clone https://github.com/FoxHoundAlphaUnit/SMSFox.git SMSFox
 $ cd SMSFox
 ```
 
+## Automatic building
+You can launch the update.sh script which will transform and minify the necessary files but you have to install sass and the minifier or it won't work.
+```batchfile
+$ ./update.sh
+```
+
+## Manual building
 #### Compiling SASS
 You'll have to compile the SASS file from css/app.sass to css/app.css.
 So, first, if you don't have SASS installed, install the Gem (you must have Ruby installed on your machine):
@@ -39,12 +46,6 @@ $ minify css/libs/materialize.css
 $ minify js/app.js
 ```
 
-#### Alternative
-Or you can just launch the update.sh script which will transform and minify the necessary files but don't forget to install sass and the minifier or it won't work.
-```batchfile
-$ ./update.sh
-```
-
 #### Web IDE
 Finally, you can load the app into an emulator or your own Firefox OS phone using WebIDE (available in the Firefox browser, Tools/Web Developer/Web IDE) and it should work!
 
@@ -57,3 +58,12 @@ If everything is working properly, you can now connect to the server on the loca
 ![app_tabs](img/screenshots/tab.png) ![server_settings](img/screenshots/server.png)
 
 Then, if you want to make it available on the internet. You got plenty of ways to do it, one could be by using NAT (Network Address Translation) so it becomes available via your public IP address on a specific port.
+
+## Progress
+#### Done
+* Sending SMS 
+* Retrieving contacts
+* Local web server OK
+
+#### Next step 
+* Preparing server response pages (sending SMS through the server)
