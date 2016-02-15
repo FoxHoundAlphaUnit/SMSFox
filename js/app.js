@@ -30,6 +30,64 @@ function fox_server_start(httpServer, sstatus){
 	sstatus.textContent = navigator.mozL10n.get('running');
 }
 
+function fox_send_sms(msg, phone){
+	console.log('Submitting SMS form...');
+	console.log('Submitted message : ' + msg + ' Phone nb: ' + phone);
+
+	/* Creating the response div, if not existing */
+	var resp = document.getElementById('response');
+	if (resp == null) {
+		$("#main-container").append('<div class="row"><div id="response"></div></div>');
+	}
+
+	$("#response").html(navigator.mozL10n.get('submitting_sms') + '...');
+
+	var request;
+	request = navigator.mozMobileMessage.send(phone, msg);
+
+	/* When the message was successfully sent */
+	request.onsuccess = function (){
+		window.thing = this;
+		console.log(this.result);
+		console.log('Sent to: ' + this.result);
+		last_sms_id = this.result['id'];
+		logMsg(this.result);
+		$("#response").html('<span>' + navigator.mozL10n.get('successfully_sent') + ' ✓</span><br/>');
+
+		/* Check if the last sms was well delivered (receipt) */
+		var checking_last_sms = window.setInterval(function(){
+			if (last_sms_id != -1){
+				var request = navigator.mozMobileMessage.getMessage(last_sms_id);
+				request.onsuccess = function (){
+					window.thing = this;
+					console.error(this.result);
+
+					if (this.result['deliveryStatus'] == 'success'){
+						clearInterval(checking_last_sms);
+						$("#response").append('<span>' + navigator.mozL10n.get('successfully_received') + ' ✓</span>');
+					}
+
+					logMsg(this.result);
+				}
+
+				request.onerror = function (){
+					$("#response").html('<span>Couldn\'t retrieve last sent SMS...</span>');
+					clearInterval(checking_last_sms);
+				}
+			}
+		}, 5000);
+	};
+
+	/* When the message wasn't sent correctly */
+	request.onerror = function (){
+		window.thing = this;
+		console.error(this.error.name);
+		console.error(this.error.message);
+		$("#response").html('<span>' + navigator.mozL10n.get('error_sending_message') + ' ✗</span>');
+		$("#response").append('<span>' + this.error.name + ':' + this.error.message + '</span>');
+	};
+}
+
 /* Loading the page */
 function load_page(requested_page){
 	console.log('Loading page ' + requested_page);
@@ -95,64 +153,9 @@ function load_page(requested_page){
 
 			/* Settings the behavior on click : sending SMS */
 			$('#sms-submit').on("click", function (ev){
-				console.log('Submitting SMS form...');
-
-				/* Creating the response div, if not existing */
-				var resp = document.getElementById('response');
-				if (resp == null) {
-					$("#main-container").append('<div class="row"><div id="response"></div></div>');
-				}
-			
-				$("#response").html(navigator.mozL10n.get('submitting_sms') + '...');
-
 				var msg = document.getElementById('message').value;
 				var phone = document.getElementById('contacts').value;
-				console.log('Submitted message : ' + msg + ' Phone nb: ' + phone);
-
-				var request;
-				request = navigator.mozMobileMessage.send(phone, msg);
-
-				/* When the message was successfully sent */
-				request.onsuccess = function (){
-					window.thing = this;
-					console.log(this.result);
-					console.log('Sent to: ' + this.result);
-					last_sms_id = this.result['id'];
-					logMsg(this.result);
-					$("#response").html('<span>' + navigator.mozL10n.get('successfully_sent') + ' ✓</span><br/>');
-
-					/* Check if the last sms was well delivered (receipt) */
-					var checking_last_sms = window.setInterval(function(){
-						if (last_sms_id != -1){
-							var request = navigator.mozMobileMessage.getMessage(last_sms_id);
-							request.onsuccess = function (){
-								window.thing = this;
-								console.error(this.result);
-			
-								if (this.result['deliveryStatus'] == 'success'){
-									clearInterval(checking_last_sms);
-									$("#response").append('<span>' + navigator.mozL10n.get('successfully_received') + ' ✓</span>');
-								}
-			
-								logMsg(this.result);
-							}
-
-							request.onerror = function (){
-								$("#response").html('<span>Couldn\'t retrieve last sent SMS...</span>');
-								clearInterval(checking_last_sms);
-							}
-						}
-					}, 5000);
-				};
-
-				/* When the message wasn't sent correctly */
-				request.onerror = function (){
-					window.thing = this;
-					console.error(this.error.name);
-					console.error(this.error.message);
-					$("#response").html('<span>' + navigator.mozL10n.get('error_sending_message') + ' ✗</span>');
-					$("#response").append('<span>' + this.error.name + ':' + this.error.message + '</span>');
-				};
+				fox_send_sms(msg, phone);
 			});
 
 			var allContacts = navigator.mozContacts.getAll();
