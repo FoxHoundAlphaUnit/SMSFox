@@ -11,11 +11,23 @@ function logMsg(msg){
 	console.log(r);
 }
 
-/* Not very beautiful, but for now, it is OK */
+/* TODO: May have a deprecated call */
 function update_loc(){
 	$('[data-l10n-id]').each(function(index){
 		$(this).html(navigator.mozL10n.get($(this).attr('data-l10n-id')));
 	});
+}
+
+/* Functions to stop and start the server from the app */
+function fox_server_stop(httpServer, sstatus){
+	console.log('Clicked on stop');
+  	httpServer.stop();
+	sstatus.textContent = navigator.mozL10n.get('stopped');
+}
+function fox_server_start(httpServer, sstatus){
+	console.log('Clicked on start');
+  	httpServer.start();
+	sstatus.textContent = navigator.mozL10n.get('running');
 }
 
 /* Loading the page */
@@ -49,15 +61,11 @@ function load_page(requested_page){
 
 			/* Adding listeners in the buttons */
 			start_b.addEventListener('click', function() {
-				console.log('Clicked on start');
-			  	httpServer.start();
-				sstatus.textContent = navigator.mozL10n.get('running');
+				fox_server_start(httpServer, sstatus);
 			});
 
 			stop_b.addEventListener('click', function() {
-				console.log('Clicked on stop');
-			  	httpServer.stop();
-				sstatus.textContent = navigator.mozL10n.get('stopped');
+				fox_server_stop(httpServer, sstatus);
 			});
 		
 			$('#testing-server').on('click', function(e){
@@ -194,21 +202,27 @@ window.addEventListener('DOMContentLoaded', function() {
 
 		console.log(request);
 
-		if (request.path === 'image.jpg') {
-		    response.headers['Content-Type'] = 'image/png';
-		    response.sendFile('../img/icons/fox128x128.png');
-		    return;
-		}
-
 		var paramsString = JSON.stringify(request.params, null, 2);
 		var bodyString   = JSON.stringify(request.body, null, 2);
 
 		var firstName = (request.body && request.body.first_name) || '';
 		var lastName  = (request.body && request.body.last_name)  || '';
 
-		var body = '<!DOCTYPE html><html><head><title>Firefox OS Web Server</title></head><body><h1>Hello World!</h1><h3>If you can read this, the Firefox OS Web Server is operational!</h3><p>The path you requested is: ' + request.path + '</p><h5>URL Parameters:</h5><pre>' + paramsString + '</pre><h5>POST Data:</h5><pre>' + bodyString + '</pre><h3>Sample Form</h3><form method="POST" action="."><p><label>First Name:</label><input type="text" name="first_name" value="' + firstName + '"></p><p><label>Last Name:</label><input type="text" name="last_name" value="' + lastName + '"></p><input type="submit" value="Submit"></form><p>To see something really scary, <a href="/image.jpg">click here</a> :-)</p></body></html>';
-
-		response.send(body);
+		var hello_world_content = '<!DOCTYPE html><html><head><title>Firefox OS Web Server</title></head><body><h1>Hello World!</h1><h3>If you can read this, the Firefox OS Web Server is operational!</h3><p>The path you requested is: ' + request.path + '</p><h5>URL Parameters:</h5><pre>' + paramsString + '</pre><h5>POST Data:</h5><pre>' + bodyString + '</pre><h3>Sample Form</h3><form method="POST" action="."><p><label>First Name:</label><input type="text" name="first_name" value="' + firstName + '"></p><p><label>Last Name:</label><input type="text" name="last_name" value="' + lastName + '"></p><input type="submit" value="Submit"></form></body></html>';
+		var send_content = '<!DOCTYPE html><html><head><title>SMSFox Server</title></head><body><h1>Send a message through your phone</h1><form method="POST" action="."><p><label>Phone number:</label><input type="text" name="first_name" value=""></p><p><label>Message:</label><input type="text" name="last_name" value=""></p><input type="submit" value="Submit"></form></body></html>';
+		var main_content = '<!DOCTYPE html><html><head><title>SMSFox Server</title></head><body><a href="send/">Sending SMS</a><a href="">Start server</a><a href="">Stop server</a></body></html>';
+		
+		if (request.path === '/image.jpg') {
+		    response.headers['Content-Type'] = 'image/png';
+		    response.sendFile('../img/icons/fox128x128.png');
+		    return;
+		} else if (request.path === '/send/') {
+			response.send(send_content);
+			return;
+		} else {
+			response.send(main_content);
+			return;
+		}
 	});
 
 	/* Loading the side nav */
