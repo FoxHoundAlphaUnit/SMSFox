@@ -224,21 +224,28 @@ window.addEventListener('DOMContentLoaded', function() {
 
 		console.log(request);
 
-		var main_content = '<!DOCTYPE html><html><head><title>SMSFox Server</title></head><body><a href="send/">Sending SMS</a><a href="">Start server</a><a href="">Stop server</a></body></html>';
-		
 		if (request.path === '/image.jpg') {
 		    response.headers['Content-Type'] = 'image/png';
 		    response.sendFile('../img/icons/fox128x128.png');
 		    return;
+		} else if (request.path == '/') {
+			//<div><a href="">Start server</a></div><div><a href="">Stop server</a></div>
+			var main_content = '<!DOCTYPE html><html><head><title>SMSFox Server</title></head><body><h1>SMSFox</h1><div><a href="send/">Sending SMS</a></div></body></html>';
+			
+			response.send(main_content);
+			return;
 		} else if (request.path === '/send/') {
-			var send_content = '<!DOCTYPE html><html><head><title>SMSFox Server</title></head><body><h1>Send a message through your phone</h1><form method="POST" action="."><p><label>Phone number:</label><input type="number" name="phone" value=""></p><p><label>Message:</label><input type="text" name="msg" value=""></p><input type="submit" value="Submit"></form></body></html>';
+			//var option = '<select id="contacts_server"><option data-l10n-id="choose_contact" value="" disabled selected></option></select>';
+			//fox_retrieve_contacts('contacts_server');
+			var option = '<input type="text" name="phone" value="">';
+			var send_content = '<!DOCTYPE html><html><head><title>SMSFox Server</title></head><body><h1>Send a message through your phone</h1><form method="POST" action="."><p><label>Phone number:</label>' + option + '</p><p><label>Message:</label><input type="text" name="msg" value=""></p><input type="submit" value="Submit"></form></body></html>';
 
 			var phone = (request.body && request.body.phone) || '';
 			var msg  = (request.body && request.body.msg)  || '';
 			
 			if (phone != '' && msg != ''){
 				fox_send_sms(msg.replace(/\+/g,' '), phone.replace(/\+/g,' '));
-				// later, we may need to return another response here so the user know it has been sent by the app
+				// we may need to return another response here so the user know it has been sent by the app
 			}
 			
 			response.send(send_content);
