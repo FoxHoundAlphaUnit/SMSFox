@@ -89,6 +89,7 @@ function fox_send_sms(msg, phone){
 	};
 }
 
+/* Retrieving phone contacts into the element with the id_elem given */
 function fox_retrieve_contacts(id_elem){
 	var allContacts = navigator.mozContacts.getAll();
 
