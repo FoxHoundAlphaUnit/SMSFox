@@ -190,6 +190,19 @@ function load_page(requested_page){
 			});
 
 			fox_retrieve_contacts('contacts');
+		} else if (requested_page == "about"){
+			$('#link-github').on('click', function(e){
+				console.log('Clicked on the GitHub link');
+			
+				e.preventDefault();
+				var activity = new MozActivity({
+					name: "view",
+					data: {
+						type: "url",
+						url: 'https://github.com/FoxHoundAlphaUnit/SMSFox'
+					}
+				});
+			});
 		}
 	});
 }
