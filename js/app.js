@@ -89,6 +89,35 @@ function fox_send_sms(msg, phone){
 	};
 }
 
+function fox_retrieve_contacts(id_elem){
+	var allContacts = navigator.mozContacts.getAll();
+
+	allContacts.onsuccess = function(event) {
+		var cursor = event.target;
+		var gn, fn, tl;
+		if (cursor.result) {
+			gn = (cursor.result.givenName == null) ? "" : cursor.result.givenName[0]
+			fn = (cursor.result.familyName == null) ? "" : cursor.result.familyName[0]
+			tl = (cursor.result.tel == null) ? "" : cursor.result.tel[0].value
+			console.log('Found one contact... Given name : ' + gn + ', Family name : ' + fn + ', Tel : ' + tl);
+
+			/* Append new contact to the select */
+			$('#'+id_elem).append('<option value="' + tl + '">' + gn + ' ' + fn + '</option>');
+
+			/* Go to the next contact */
+			cursor.continue();
+		} else {
+			console.log('No more contacts, creating the Materialize select...');
+			/* Once the contacts are all retrieved, we create the Materialize select */
+			$('select').material_select();
+		}
+	};
+
+	allContacts.onerror = function() {
+		console.warn('Something went terribly wrong while retrieving the contacts!');
+	};
+}
+
 /* Loading the page */
 function load_page(requested_page){
 	console.log('Loading page ' + requested_page);
@@ -159,33 +188,7 @@ function load_page(requested_page){
 				fox_send_sms(msg, phone);
 			});
 
-
-			var allContacts = navigator.mozContacts.getAll();
-
-			allContacts.onsuccess = function(event) {
-				var cursor = event.target;
-				var gn, fn, tl;
-				if (cursor.result) {
-					gn = (cursor.result.givenName == null) ? "" : cursor.result.givenName[0]
-					fn = (cursor.result.familyName == null) ? "" : cursor.result.familyName[0]
-					tl = (cursor.result.tel == null) ? "" : cursor.result.tel[0].value
-					console.log('Found one contact... Given name : ' + gn + ', Family name : ' + fn + ', Tel : ' + tl);
-
-					/* Append new contact to the select */
-					$('#contacts').append('<option value="' + tl + '">' + gn + ' ' + fn + '</option>');
-
-					/* Go to the next contact */
-					cursor.continue();
-				} else {
-					console.log('No more contacts, creating the Materialize select...');
-					/* Once the contacts are all retrieved, we create the Materialize select */
-					$('select').material_select();
-				}
-			};
-
-			allContacts.onerror = function() {
-				console.warn('Something went terribly wrong while retrieving the contacts!');
-			};
+			fox_retrieve_contacts('contacts');
 		}
 	});
 }
