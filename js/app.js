@@ -30,6 +30,7 @@ function fox_server_start(httpServer, sstatus){
 	sstatus.textContent = navigator.mozL10n.get('running');
 }
 
+/* Function to send a SMS through the app (with the response being displayed on the app)*/
 function fox_send_sms(msg, phone){
 	console.log('Submitting SMS form...');
 	console.log('Submitted message : ' + msg + ' Phone nb: ' + phone);
@@ -158,6 +159,7 @@ function load_page(requested_page){
 				fox_send_sms(msg, phone);
 			});
 
+
 			var allContacts = navigator.mozContacts.getAll();
 
 			allContacts.onsuccess = function(event) {
@@ -212,7 +214,7 @@ window.addEventListener('DOMContentLoaded', function() {
 		var lastName  = (request.body && request.body.last_name)  || '';
 
 		var hello_world_content = '<!DOCTYPE html><html><head><title>Firefox OS Web Server</title></head><body><h1>Hello World!</h1><h3>If you can read this, the Firefox OS Web Server is operational!</h3><p>The path you requested is: ' + request.path + '</p><h5>URL Parameters:</h5><pre>' + paramsString + '</pre><h5>POST Data:</h5><pre>' + bodyString + '</pre><h3>Sample Form</h3><form method="POST" action="."><p><label>First Name:</label><input type="text" name="first_name" value="' + firstName + '"></p><p><label>Last Name:</label><input type="text" name="last_name" value="' + lastName + '"></p><input type="submit" value="Submit"></form></body></html>';
-		var send_content = '<!DOCTYPE html><html><head><title>SMSFox Server</title></head><body><h1>Send a message through your phone</h1><form method="POST" action="."><p><label>Phone number:</label><input type="text" name="phone" value=""></p><p><label>Message:</label><input type="text" name="msg" value=""></p><input type="submit" value="Submit"></form></body></html>';
+		var send_content = '<!DOCTYPE html><html><head><title>SMSFox Server</title></head><body><h1>Send a message through your phone</h1><form method="POST" action="."><p><label>Phone number:</label><input type="number" name="phone" value=""></p><p><label>Message:</label><input type="text" name="msg" value=""></p><input type="submit" value="Submit"></form></body></html>';
 		var main_content = '<!DOCTYPE html><html><head><title>SMSFox Server</title></head><body><a href="send/">Sending SMS</a><a href="">Start server</a><a href="">Stop server</a></body></html>';
 		
 		if (request.path === '/image.jpg') {
@@ -222,7 +224,12 @@ window.addEventListener('DOMContentLoaded', function() {
 		} else if (request.path === '/send/') {
 			var phone = (request.body && request.body.phone) || '';
 			var msg  = (request.body && request.body.msg)  || '';
-			fox_send_sms(msg, phone);
+			
+			if (phone != '' && msg != ''){
+				fox_send_sms(msg.replace(/\+/g,' '), phone.replace(/\+/g,' '));
+				// we may need to return another response here
+			}
+			
 			response.send(send_content);
 			return;
 		} else {
